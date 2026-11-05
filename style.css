@@ -1,0 +1,252 @@
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; padding: 0;
+  background-color: #F7F5F0; 
+  font-family: "Helvetica Neue", "微軟正黑體", sans-serif;
+  color: #2C2C2C;
+  overflow-x: hidden;
+}
+
+/* 導覽列 */
+.modern-nav {
+  position: fixed; top: 0; left: 0; width: 100%;
+  padding: 25px 5%; box-sizing: border-box;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 1000;
+  background: rgba(247, 245, 240, 0.85); 
+  backdrop-filter: blur(10px); 
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.nav-logo { font-family: "Impact", sans-serif; font-size: 1.5rem; letter-spacing: 1px; color: #E6422B;}
+.nav-logo span { font-family: "Helvetica Neue", sans-serif; font-size: 1rem; font-weight: 300; letter-spacing: 2px; color: #888; }
+
+.random-pick-btn {
+  background-color: #E6422B; color: #FFFFFF; border: none;
+  padding: 10px 20px; border-radius: 30px; font-weight: bold;
+  font-size: 0.9rem; letter-spacing: 1px; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(230, 66, 43, 0.4);
+  transition: all 0.3s ease;
+}
+.random-pick-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(230, 66, 43, 0.6);
+  background-color: #ff4d30;
+}
+
+/* 封面與地圖區塊 */
+.premium-hero {
+  position: relative; width: 100vw; height: 100vh;
+  display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);
+  font-family: "Impact", sans-serif; font-size: 28vw; color: rgba(0,0,0,0.04); z-index: 1; pointer-events: none;
+}
+.hero-visuals {
+  position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 10;
+}
+.visual-title { position: absolute; width: 35vw; max-width: 550px; z-index: 12; margin-top: -120px; }
+.visual-plate { position: absolute; width: 45vw; max-width: 650px; z-index: 11; margin-top: 100px; }
+
+.slide-down { animation: floatDown 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards, breathe 4s ease-in-out infinite 1.5s; }
+.slide-up { animation: floatUp 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards, breathe 5s ease-in-out infinite 1.5s; }
+@keyframes floatDown { 0% { opacity: 0; transform: translateY(-100px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes floatUp { 0% { opacity: 0; transform: translateY(100px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+.hero-footer {
+  padding: 0 5% 40px 5%; display: flex; justify-content: space-between; align-items: flex-end; z-index: 20;
+}
+.authors span { display: block; font-weight: bold; font-size: 0.85rem; color: #E6422B; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+.authors p { margin: 0; font-size: 1rem; font-weight: 700; color: #E6422B; }
+.social-links img { width: 30px; margin-left: 15px; cursor: pointer; transition: transform 0.3s; }
+.social-links img:hover { transform: translateY(-5px); }
+
+.premium-map-section {
+  padding: 120px 5%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
+}
+.map-layout {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; width: 100%; max-width: 1400px; align-items: center;
+}
+.map-info { position: relative; }
+.map-title { font-family: "Impact", sans-serif; font-size: 5.5rem; line-height: 0.9; margin: 0 0 20px 0; letter-spacing: 2px; color: #1A1A1A; }
+.map-desc { font-size: 1.1rem; color: #E6422B; line-height: 1.6; margin-bottom: 40px; font-weight: 700; }
+.decor-ramen { width: 80%; max-width: 280px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); margin-bottom: 40px; transition: transform 0.5s ease; }
+.decor-ramen:hover { transform: scale(1.05) rotate(-3deg); }
+
+.modern-legend { display: flex; flex-direction: column; gap: 15px; }
+.legend-item { display: flex; align-items: center; gap: 15px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.line { width: 60px; height: 4px; border-radius: 2px; }
+.green { background: #008659; } .yellow { background: #16499D; } .orange { background: #B68F52; }
+
+.map-interactive { display: flex; justify-content: flex-end; }
+.choice-metro-svg { width: 100%; max-width: 850px; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.08)); }
+.red-group .metro-line { fill: #E71F19; } .blue-group .metro-line { fill: #16499D; } .brown-group .metro-line { fill: #B68F52; }
+.line-group { transition: transform 0.3s ease, filter 0.3s; cursor: pointer; transform-origin: center; transform-box: fill-box; }
+.metro-link:hover .line-group { transform: scale(1.06); filter: drop-shadow(0 0 20px rgba(0,0,0,0.2)); }
+
+/* 路線選擇彈跳視窗樣式 */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); z-index: 9999;
+  justify-content: center; align-items: center;
+}
+.modal-content {
+  position: relative; background-color: #1a1617; padding: 30px; border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;
+}
+.close-btn {
+  position: absolute; top: 15px; right: 25px; font-size: 2.5rem; color: #fff; cursor: pointer; z-index: 10000; transition: 0.2s;
+}
+.close-btn:hover { color: #E71F19; transform: scale(1.1); }
+.modal-svg-map { width: 90vw; max-width: 900px; max-height: 75vh; }
+
+/* ==========================================================
+   🌟 全螢幕覆蓋視窗
+========================================================== */
+.sandwich-overlay {
+  display: none; 
+  position: fixed; inset: 0; width: 100vw; height: 100vh;
+  z-index: 99999; 
+  overflow-y: auto; 
+  box-sizing: border-box; 
+  padding: 0; 
+  color: #fff;
+}
+.sandwich-overlay .close-btn {
+  position: fixed; top: 20px; right: 30px; color: #fff; z-index: 100000; font-size: 3rem; cursor: pointer;
+}
+
+/* 第一頁：固定 100vh 滿版 */
+.sandwich-page-one {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 40px 60px 100px 60px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.hero-container {
+  position: relative; width: 100%; flex: 1;
+  display: flex; justify-content: center; align-items: center;
+}
+
+.animated-text {
+  position: absolute; 
+  font-family: "Impact", sans-serif; 
+  width: 100%;
+  opacity: 0.95; 
+  letter-spacing: 0.5vw; 
+  user-select: none; 
+  text-align: center;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* 🌟 三店大字個別獨立設定 */
+.red-theme .animated-text { 
+  color: #FFD700; 
+  font-size: 25vw;            
+  transform: translateY(-50px); 
+}   
+
+.blue-theme .animated-text { 
+  color: #E71F19; 
+  font-size: 25vw;            
+  transform: translateY(-50px); 
+}  
+
+.brown-theme .animated-text { 
+  color: #16499D; 
+  font-size: 25vw;            
+  transform: translateY(-50px); 
+}   
+
+.animated-food-img {
+  width: 32vw; 
+  max-width: 400px; 
+  height: auto; 
+  z-index: 2;
+  opacity: 0; 
+  animation: zoomSlideFromInside 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, 
+             floatFood 4s ease-in-out infinite 1.6s;
+  transform: translateY(-10px);
+}
+
+@keyframes zoomSlideFromInside {
+  0% { transform: scale(0.7) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(-10px); opacity: 1; }
+}
+@keyframes floatFood { 
+  0%, 100% { transform: translateY(-10px); } 
+  50% { transform: translateY(-25px); } 
+}
+
+.bottom-info {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start;
+  max-width: 1300px; 
+  width: 100vw; 
+  margin: 0 auto; 
+  padding: 0 20px;
+  box-sizing: border-box;
+  gap: 40px;
+}
+.info-block { 
+  display: flex; 
+  gap: 15px; 
+  flex: 1; 
+  color: #fff; 
+  justify-content: center; 
+}
+.info-block .tag-box { font-family: "Impact", sans-serif; font-size: 1.1rem; color: #FFD700; line-height: 1.2; text-align: right; }
+.info-block .name { margin: 0 0 4px 0; font-size: 1.05rem; letter-spacing: 1px; color: #fff; font-weight: bold; }
+.info-block p { margin: 0; font-size: 0.82rem; color: #ddd; line-height: 1.4; }
+
+.bottom-gradient-footer {
+  position: absolute; bottom: 0; left: 0; width: 100vw; height: 80px; 
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  pointer-events: none; z-index: 99;
+}
+
+/* 第二頁：MENU 底圖與右下角導航熱點 */
+.menu-page-section {
+  position: relative;
+  width: 100vw;
+  background-color: #F7F5F0; 
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-bg-wrapper {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+}
+
+.menu-bg-img {
+  width: 100vw;
+  height: auto;
+  display: block;
+}
+
+/* 🌟 右下角地址點擊導航熱點 */
+.map-link-hotspot {
+  position: absolute;
+  bottom: 2.5%;   
+  right: 2.5%;    
+  width: 25%;     
+  height: 8%;     
+  cursor: pointer;
+  z-index: 50;
+  background: transparent; 
+}

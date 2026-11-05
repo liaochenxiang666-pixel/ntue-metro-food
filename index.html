@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>捷運美食指南 - 模組化完成版</title>
+  <!-- 連結外部 CSS 樣式表 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 導覽列 -->
+  <nav class="modern-nav">
+    <div class="nav-logo">NTUE <span>METRO GUIDE</span></div>
+    <button class="random-pick-btn" onclick="randomPickFood()">🎲 隨機抽美食</button>
+  </nav>
+
+  <!-- 封面 -->
+  <section class="premium-hero">
+    <div class="hero-bg-text">TAIPEI</div>
+    <div class="hero-visuals">
+      <img src="images/上面.png" alt="標題" class="visual-title slide-down">
+      <img src="images/只有下面.png" alt="餐盤" class="visual-plate slide-up">
+    </div>
+    <div class="hero-footer">
+      <div class="authors">
+        <span>Webmaster</span>
+        <p>s111419025@stu.ntue.edu.tw / s111419037@stu.ntue.edu.tw</p>
+      </div>
+      <div class="social-links">
+        <img src="images/THREAD.png" alt="Threads">
+        <img src="images/FB.png" alt="Facebook">
+      </div>
+    </div>
+  </section>
+
+  <!-- 地圖區塊 -->
+  <section class="premium-map-section" id="map">
+    <div class="map-layout">
+      <div class="map-info">
+        <h2 class="map-title">Choice<br>Line.</h2>
+        <p class="map-desc">National Taipei University of Education<br>Exclusive Metro Food Map.</p>
+        <img src="images/麵.png" alt="拉麵" class="decor-ramen">
+        <div class="modern-legend">
+          <div class="legend-item"><span class="dot green"></span><span class="line green"></span></div>
+          <div class="legend-item"><span class="dot yellow"></span><span class="line yellow"></span></div>
+          <div class="legend-item"><span class="dot orange"></span><span class="line orange"></span></div>
+        </div>
+      </div>
+      
+      <div class="map-interactive">
+        <svg viewBox="0 0 841.89 595.28" class="choice-metro-svg">
+          <a href="javascript:void(0);" class="metro-link" onclick="openRedModal()">
+            <g class="line-group red-group"><rect x="370.77" y="401.14" class="metro-line" width="427.02" height="41.13"/><rect x="33.18" y="133.99" class="metro-line" width="378.72" height="41.13"/><rect x="237.4" y="267.77" transform="matrix(3.327692e-10 1 -1 3.327692e-10 679.6724 -103.001)" class="metro-line" width="307.88" height="41.13"/></g>
+          </a>
+          <a href="javascript:void(0);" class="metro-link" onclick="openBlueModal()">
+            <g class="line-group blue-group"><rect x="541.42" y="361.83" transform="matrix(-1.686395e-10 1 -1 -1.686395e-10 1043.1177 -278.3211)" class="metro-line" width="238.59" height="41.13"/><rect x="59.62" y="162.37" transform="matrix(3.897778e-10 1 -1 3.897778e-10 363.8541 2.0177)" class="metro-line" width="242.6" height="41.13"/><rect x="160.35" y="263.1" transform="matrix(-1 3.404265e-12 -3.404265e-12 -1 841.6376 567.3394)" class="metro-line" width="520.94" height="41.13"/></g>
+          </a>
+          <a href="javascript:void(0);" class="metro-link" onclick="openBrownModal()">
+            <g class="line-group brown-group"><rect x="122.92" y="338.02" transform="matrix(-1 -7.101553e-12 7.101553e-12 -1 882.3677 717.1702)" class="metro-line" width="636.53" height="41.13"/><rect x="332.08" y="69.46" transform="matrix(-1 -1.716002e-10 1.716002e-10 -1 1091.9336 180.0458)" class="metro-line" width="427.77" height="41.13"/><rect x="585.24" y="204.52" transform="matrix(-4.295621e-10 -1 1 -4.295621e-10 514.2022 964.3713)" class="metro-line" width="308.1" height="41.13"/><rect x="90.35" y="375.88" transform="matrix(1.442879e-09 -1 1 1.442879e-09 -252.9613 539.9325)" class="metro-line" width="106.26" height="41.13"/></g>
+          </a>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 紅線彈跳視窗 ================= -->
+  <div id="redLineModal" class="modal-overlay" onclick="closeRedModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-btn" onclick="closeRedModal()">×</span>
+      <svg viewBox="0 0 841.89 595.28" class="modal-svg-map">
+        <style>.st0{fill:#1A1617;} .st1{fill:none;stroke:#E71F19;stroke-width:18;} .st2{fill:#E71F19;} .st3{fill:#FFF;}
+        .station-group { cursor: pointer; transition: 0.2s; transform-origin: center; transform-box: fill-box; }
+        .station-group:hover { transform: scale(1.3); }
+        .station-text { font-family: sans-serif; font-size: 16px; fill: #FFF; text-anchor: middle; }</style>
+        <rect y="105.91" class="st0" width="841.89" height="383.28" rx="10"/>
+        <path class="st1" d="M-47.31,367.19c40.6,6.06,81.21,12.12,121.81,18.18c47.64-74.03,95.28-148.06,142.92-222.1L445.2,395.08l251.12-112.75c22.37-42.22,44.75-84.43,67.12-126.65c43.31-4.02,86.62-8.05,129.93-12.07"/>
+        
+        <g class="station-group"><circle class="st2" cx="75.18" cy="382.89" r="34.04"/><circle class="st3" cx="75.18" cy="382.89" r="23.55"/><text x="75.18" y="325" class="station-text">雙連</text></g>
+        <g class="station-group"><circle class="st2" cx="140.25" cy="279.59" r="34.04"/><circle class="st3" cx="140.25" cy="279.59" r="23.55"/><text x="140.25" y="225" class="station-text">中山</text></g>
+        <g class="station-group"><circle class="st2" cx="218.8" cy="163.27" r="34.04"/><circle class="st3" cx="218.8" cy="163.27" r="23.55"/><text x="218.8" y="110" class="station-text">台北車站</text></g>
+        <g class="station-group"><circle class="st2" cx="330.74" cy="276.39" r="34.04"/><circle class="st3" cx="330.74" cy="276.39" r="23.55"/><text x="330.74" y="220" class="station-text">台大醫院</text></g>
+        <g class="station-group"><circle class="st2" cx="446.58" cy="390.74" r="34.04"/><circle class="st3" cx="446.58" cy="390.74" r="23.55"/><text x="446.58" y="450" class="station-text">中正紀念堂</text></g>
+        <g class="station-group"><circle class="st2" cx="572.98" cy="341.18" r="34.04"/><circle class="st3" cx="572.98" cy="341.18" r="23.55"/><text x="572.98" y="285" class="station-text">東門</text></g>
+        <g class="station-group"><circle class="st2" cx="691.72" cy="276.39" r="34.04"/><circle class="st3" cx="691.72" cy="276.39" r="23.55"/><text x="691.72" y="340" class="station-text">大安森林公園</text></g>
+        
+        <g class="station-group" onclick="openSandwichPage('red', '#E71F19')"><circle class="st2" cx="765.78" cy="158.49" r="34.04"/><circle class="st3" cx="765.78" cy="158.49" r="23.55"/><text x="765.78" y="105" class="station-text">大安</text></g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ================= 藍線彈跳視窗 ================= -->
+  <div id="blueLineModal" class="modal-overlay" onclick="closeBlueModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-btn" onclick="closeBlueModal()">×</span>
+      <svg viewBox="0 0 841.89 595.28" class="modal-svg-map">
+        <style>.b-bg{fill:#1A1617;} .b-line{fill:none;stroke:#16499D;stroke-width:18;} .b-circle{fill:#16499D;} .st3{fill:#FFF;}
+        .station-group { cursor: pointer; transition: 0.2s; transform-origin: center; transform-box: fill-box; }
+        .station-group:hover { transform: scale(1.3); }
+        .b-text { font-family: sans-serif; font-size: 16px; fill: #FFF; text-anchor: middle; }</style>
+        <rect y="114.29" class="b-bg" width="844.67" height="384.55" rx="10"/>
+        <path class="b-line" d="M-42.61,459.21c63.63-85.66,127.26-171.33,190.89-256.99c85.1,78.58,170.2,157.16,255.3,235.74l371.32-67.79 c31.03-70.82,62.05-141.65,93.08-212.47"/>
+        
+        <g class="station-group"><circle class="b-circle" cx="45.13" cy="340.58" r="34.04"/><circle class="st3" cx="45.13" cy="340.58" r="23.55"/><text x="45.13" y="280" class="b-text">西門</text></g>
+        <g class="station-group"><circle class="b-circle" cx="149.66" cy="206.32" r="34.04"/><circle class="st3" cx="149.66" cy="206.32" r="23.55"/><text x="149.66" y="145" class="b-text">台北車站</text></g>
+        <g class="station-group"><circle class="b-circle" cx="272.42" cy="314.01" r="34.04"/><circle class="st3" cx="272.42" cy="314.01" r="23.55"/><text x="272.42" y="255" class="b-text">善導寺</text></g>
+        
+        <g class="station-group" onclick="openSandwichPage('blue', '#16499D')"><circle class="b-circle" cx="403.28" cy="427.1" r="34.04"/><circle class="st3" cx="403.28" cy="427.1" r="23.55"/><text x="403.28" y="485" class="b-text">忠孝新生</text></g>
+        
+        <g class="station-group"><circle class="b-circle" cx="587.42" cy="403.59" r="34.04"/><circle class="st3" cx="587.42" cy="403.59" r="23.55"/><text x="587.42" y="465" class="b-text">忠孝復興</text></g>
+        <g class="station-group"><circle class="b-circle" cx="763.46" cy="371.22" r="34.04"/><circle class="st3" cx="763.46" cy="371.22" r="23.55"/><text x="763.46" y="430" class="b-text">忠孝敦化</text></g>
+        
+        <g class="station-group"><circle class="b-circle" cx="837.54" cy="237" r="34.04"/><circle class="st3" cx="837.54" cy="237" r="23.55"/><text x="855.54" y="300" class="b-text">市政府</text></g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ================= 棕線彈跳視窗 ================= -->
+  <div id="brownLineModal" class="modal-overlay" onclick="closeBrownModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-btn" onclick="closeBrownModal()">×</span>
+      <svg viewBox="0 0 841.89 595.28" class="modal-svg-map">
+        <style>.br-bg{fill:#1A1617;} .br-line{fill:none;stroke:#CA6621;stroke-width:18;stroke-linecap:round;stroke-linejoin:round;} .br-circle{fill:#CA6621;} .st3{fill:#FFF;}
+        .station-group { cursor: pointer; transition: 0.2s; transform-origin: center; transform-box: fill-box; }
+        .station-group:hover { transform: scale(1.3); }
+        .br-text { font-family: sans-serif; font-size: 16px; fill: #FFF; text-anchor: middle; }</style>
+        <rect x="1.68" y="107.04" class="br-bg" width="844.12" height="384.29" rx="10"/>
+        <path class="br-line" d="M 65 325.57 L 175.4 454.85 L 323.07 381.13 L 493.36 280.23 L 613.07 332.06 L 812.78 175.04"/>
+        
+        <g class="station-group"><circle class="br-circle" cx="65" cy="325.57" r="34.04"/><circle class="st3" cx="65" cy="325.57" r="23.55"/><text x="65" y="265" class="br-text">麟光</text></g>
+        <g class="station-group"><circle class="br-circle" cx="175.4" cy="454.85" r="34.04"/><circle class="st3" cx="175.4" cy="454.85" r="23.55"/><text x="175.4" y="515" class="br-text">六張犁</text></g>
+        <g class="station-group" onclick="openSandwichPage('brown', '#CA6621')"><circle class="br-circle" cx="323.07" cy="381.13" r="34.04"/><circle class="st3" cx="323.07" cy="381.13" r="23.55"/><text x="323.07" y="440" class="br-text">科技大樓</text></g>
+        <g class="station-group"><circle class="br-circle" cx="493.36" cy="280.23" r="34.04"/><circle class="st3" cx="493.36" cy="280.23" r="23.55"/><text x="493.36" y="220" class="br-text">大安</text></g>
+        <g class="station-group"><circle class="br-circle" cx="613.07" cy="332.06" r="34.04"/><circle class="st3" cx="613.07" cy="332.06" r="23.55"/><text x="613.07" y="395" class="br-text">忠孝復興</text></g>
+        <g class="station-group"><circle class="br-circle" cx="812.78" cy="175.04" r="34.04"/><circle class="st3" cx="812.78" cy="175.04" r="23.55"/><text x="812.78" y="115" class="br-text">松山機場</text></g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ================= 三線動態切換視窗 ================= -->
+  <div id="sandwichPage" class="sandwich-overlay">
+    <span class="close-btn" onclick="closeSandwichPage()">×</span>
+
+    <!-- 第一頁內容 (100vh) -->
+    <div class="sandwich-page-one">
+      <div class="hero-container">
+        <div id="heroTitleText" class="animated-text">BRUN</div>
+        <img id="heroFoodImg" src="images/三明治.png" alt="美食圖片" class="animated-food-img">
+      </div>
+
+      <!-- 第一頁下方三欄品牌靈魂與亮點速覽 -->
+      <div class="bottom-info">
+        <div class="info-block">
+          <div id="col1Tag" class="tag-box">招牌特色</div>
+          <div class="details">
+            <h3 id="col1Title" class="name">經典法式早午餐</h3>
+            <p id="col1Desc" class="desc">嚴選新鮮食材與手作麵包，演繹城市巷弄裡的優雅晨光食光。</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <div id="col2Tag" class="tag-box">在地氛圍</div>
+          <div class="details">
+            <h3 id="col2Title" class="name">歐風日光玻璃屋</h3>
+            <p id="col2Desc" class="desc">通透采光與植栽綠意交織，打造愜意放鬆的質感聚落空間。</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <div id="col3Tag" class="tag-box">探索提示</div>
+          <div class="details">
+            <h3 id="col3Title" class="name">解鎖完整菜單</h3>
+            <p id="col3Desc" class="desc">向下滑動解鎖完整菜單與交通指南，展開味蕾的美好探險。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部黑底漸層 -->
+    <div class="bottom-gradient-footer"></div>
+
+    <!-- ================= 第二頁：動態讀取專屬 MENU 底圖與右下角精準地圖導航熱點 ================= -->
+    <div class="menu-page-section">
+      <div class="menu-bg-wrapper">
+        <img id="menuBgImg" src="images/紅線的MENU.png" alt="MENU底圖" class="menu-bg-img">
+        <!-- 🌟 右下角點擊導航按鈕 -->
+        <a id="mapHotspotLink" href="https://www.google.com/maps/place/BRUN%E4%B8%8D%E7%84%B6-%E4%BF%A1%E7%BE%A9%E5%BA%97(%E6%8D%B7%E9%81%8B%E5%A4%A7%E5%AE%89%E7%AB%99)/@25.0335569,121.5449205,17z" target="_blank" class="map-link-hotspot" title="點擊開啟 Google Maps 導航"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 連結外部 JavaScript 邏輯 -->
+  <script src="script.js"></script>
+</body>
+</html>
